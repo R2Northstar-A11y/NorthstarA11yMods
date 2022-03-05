@@ -297,6 +297,8 @@ void function OpenDialog( DialogData dialogData )
 	int defaultButtonHeight = int( ContentScaledY( 40 ) )
 	int buttonsHeight = defaultButtonHeight * numChoices
 
+	int focusBtnIndex = 0
+
 	// Setup each button: hide, or set text and show
 	foreach ( index, button in buttons )
 	{
@@ -313,8 +315,10 @@ void function OpenDialog( DialogData dialogData )
 			Hud_SetHeight( button, defaultButtonHeight )
 			Hud_Show( button )
 
-			if ( uiGlobal.dialogButtonData[ index ].startFocused )
+			if ( uiGlobal.dialogButtonData[ index ].startFocused ) {
+				focusBtnIndex = index
 				thread HACK_DelayedSetFocus_BecauseWhy( button )
+			}
 		}
 		else
 		{
@@ -381,7 +385,7 @@ void function OpenDialog( DialogData dialogData )
 
 	AdvanceMenu( menu )
 
-	thread TTSsayWait(Localize(dialogData.header) + ". " + Localize(dialogData.message), 0.01)
+	thread TTSsayWait(Localize(dialogData.header) + ". " + Localize(dialogData.message) + ". " + Localize(uiGlobal.dialogButtonData[ focusBtnIndex ].label), 0.01)
 }
 
 void function TTSsayWait(string text, float delay) {
