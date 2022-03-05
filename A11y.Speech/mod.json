@@ -1,0 +1,9 @@
+{
+	"Name" : "A11y.Speech",
+	"Description" : "Support for screen reading in game",
+	"Version": "1.0.0",
+	"LoadPriority": 1,
+
+	"ConVars": [],
+	"Scripts": []
+}
