@@ -816,6 +816,12 @@ void function OnServerButtonFocused( var button )
 void function SayServerInfo(int scriptID) {
 	int serverIndex = file.scrollOffset + scriptID
 	if (serverIndex < 0) serverIndex = 0
+
+	if ( NSGetServerCount() == 0 ) {
+		thread TTSsay(Localize("#NS_SERVERBROWSER_NOSERVERS"))
+		return
+	}
+
 	serverStruct server = file.serversArrayFiltered[ serverIndex ];
 	if(server.serverProtected)
 		thread TTSsay("Protected, " + NSGetServerName( server.serverIndex )+", " + server.serverPlayers + " of " + server.serverPlayersMax + ", " + Localize(server.serverGamemode) + " on " + Localize("#"+server.serverMap))
